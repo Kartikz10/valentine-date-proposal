@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine's Date Proposal</title>
+  <style>
+    /* Ensure the full viewport is used */
+    html, body {
+      margin: 0;
+      height: 100%;
+    }
+    /* Center the content in the viewport */
+    #container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background-color: #ffe6e6;
+    }
+    #question {
+      font-size: 2em;
+      color: #d6336c;
+      margin-bottom: 20px;
+    }
+    .btn {
+      font-size: 1.5em;
+      padding: 15px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #yes {
+      background-color: #ff66a3;
+      color: white;
+    }
+    /* "No" button is positioned absolutely within the container */
+    #no {
+      background-color: #888;
+      color: white;
+      position: absolute;
+    }
+    #message {
+      display: none;
+      font-size: 1.8em;
+      color: #ff3366;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="question">Hey Ayushi, will you go out on a date with K or not?</div>
+    <button id="yes" class="btn">Yes</button>
+    <button id="no" class="btn">No</button>
+    <div id="message">Yay! I knew you'd say Yes, Ayushi! Let's have an amazing date with K!</div>
+  </div>
+  
+  <!-- Include the canvas-confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <!-- Your JavaScript Code -->
+  <script>
+    // Function to randomly position the "No" button within the container.
+    function positionNoButton() {
+      const container = document.getElementById('container');
+      const noButton = document.getElementById('no');
+      const containerRect = container.getBoundingClientRect();
+      const maxX = containerRect.width - noButton.offsetWidth;
+      const maxY = containerRect.height - noButton.offsetHeight;
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+      noButton.style.left = randomX + 'px';
+      noButton.style.top = randomY + 'px';
+    }
+    
+    // Initially position the "No" button.
+    positionNoButton();
+    
+    // When the mouse hovers over the "No" button, reposition it.
+    document.getElementById('no').addEventListener('mouseover', positionNoButton);
+    
+    // Also add a touch event for mobile devices.
+    document.getElementById('no').addEventListener('touchstart', positionNoButton);
+    
+    // When the "Yes" button is clicked, hide the question and buttons,
+    // show the sweet message, and launch confetti.
+    document.getElementById('yes').addEventListener('click', function() {
+      document.getElementById('question').style.display = 'none';
+      document.getElementById('yes').style.display = 'none';
+      document.getElementById('no').style.display = 'none';
+      document.getElementById('message').style.display = 'block';
+    
+      // Launch confetti for 5 seconds.
+      const duration = 5 * 1000;
+      const end = Date.now() + duration;
+      (function frame() {
+        confetti({
+          particleCount: 3,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 3,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    });
+  </script>
+</body>
+</html>
