@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine's Date Proposal</title>
+  <!-- Google Fonts for a stylish look -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & basic settings */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      font-family: 'Roboto', sans-serif;
+    }
+    body {
+      /* Pastel gradient background */
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      overflow: hidden;
+      position: relative;
+    }
+    /* Main container styling */
+    #container {
+      position: relative;
+      z-index: 2; /* ensure it appears above floating hearts */
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    /* Question styling */
+    #question {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3em;
+      color: #d6336c;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    /* Button styling */
+    .btn {
+      font-size: 1.5em;
+      padding: 15px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .btn:active {
+      transform: scale(0.95);
+    }
+    #yes {
+      background-color: #ff66a3;
+      color: #fff;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    /* "No" button is absolutely positioned so it can move around */
+    #no {
+      background-color: #888;
+      color: #fff;
+      position: absolute;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    /* Message styling */
+    #message {
+      display: none;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5em;
+      color: #ff3366;
+      margin-top: 20px;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    }
+    /* Floating hearts for a cute effect */
+    .heart {
+      position: absolute;
+      bottom: -50px;
+      font-size: 2em;
+      color: #ff3366;
+      animation: floatUp 6s linear infinite;
+      opacity: 0;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-800px) scale(1);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating hearts elements -->
+  <div id="floating-hearts">
+    <div class="heart" style="left: 10%; animation-delay: 0s;">&#10084;</div>
+    <div class="heart" style="left: 30%; animation-delay: 1s;">&#10084;</div>
+    <div class="heart" style="left: 50%; animation-delay: 2s;">&#10084;</div>
+    <div class="heart" style="left: 70%; animation-delay: 3s;">&#10084;</div>
+    <div class="heart" style="left: 90%; animation-delay: 4s;">&#10084;</div>
+  </div>
+  
+  <div id="container">
+    <div id="question">Hey Ayushi, will you go out on a date with K or not?</div>
+    <button id="yes" class="btn">Yes</button>
+    <button id="no" class="btn">No</button>
+    <div id="message">Yay! I knew you'd say Yes! Let's have an amazing date!</div>
+  </div>
+  
+  <!-- Include canvas-confetti for the fireworks effect -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    // Function to randomly position the "No" button within the container.
+    function positionNoButton() {
+      const container = document.getElementById('container');
+      const noButton = document.getElementById('no');
+      const containerRect = container.getBoundingClientRect();
+      const maxX = containerRect.width - noButton.offsetWidth;
+      const maxY = containerRect.height - noButton.offsetHeight;
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+      noB
